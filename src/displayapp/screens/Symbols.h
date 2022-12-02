@@ -19,6 +19,9 @@ namespace Pinetime {
         static constexpr const char* tachometer = "\xEF\x8F\xBD";
         static constexpr const char* paintbrush = "\xEF\x87\xBC";
         static constexpr const char* paddle = "\xEF\x91\x9D";
+        static constexpr const char* toilet = "\xEF\x9F\x98";
+        static constexpr const char* cloudUp = "\xEF\x8E\x82";
+        static constexpr const char* cloudDown = "\xEF\x8E\x81";
         static constexpr const char* map = "\xEF\x96\xa0";
         static constexpr const char* phone = "\xEF\x82\x95";
         static constexpr const char* phoneSlash = "\xEF\x8F\x9D";
