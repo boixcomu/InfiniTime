@@ -53,7 +53,7 @@ namespace Pinetime {
           {Symbols::drum, Apps::Metronome},
           {Symbols::map, Apps::Navigation},
           
-          {Symbols::toilet, Apps::Twente},
+          {"UT", Apps::Twente},
         }};
         ScreenList<nScreens> screens;
       };
