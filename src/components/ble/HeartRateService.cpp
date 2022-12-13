@@ -24,6 +24,11 @@ HeartRateService::HeartRateService(Pinetime::System::SystemTask& system, Control
                                .arg = this,
                                .flags = BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY,
                                .val_handle = &heartRateMeasurementHandle},
+                               {.uuid = &rawPPGMeasurementUuid.u,
+                               .access_cb = HeartRateServiceCallback,
+                               .arg = this,
+                               .flags = BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY,
+                               .val_handle = &rawPPGMeasurementHandle},
                               {0}},
     serviceDefinition {
       {/* Device Information Service */
@@ -52,7 +57,15 @@ int HeartRateService::OnHeartRateRequested(uint16_t connectionHandle, uint16_t a
 
     int res = os_mbuf_append(context->om, buffer, 2);
     return (res == 0) ? 0 : BLE_ATT_ERR_INSUFFICIENT_RES;
+  }else if (attributeHandle == rawPPGMeasurementHandle){
+    NRF_LOG_INFO("HEARTRATE : handle = %d", rawPPGMeasurementHandle);
+
+    uint8_t buffer[8] = {heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate(),heartRateController.HeartRate()};
+
+    int res = os_mbuf_append(context->om, buffer, 8 * sizeof(int8_t));
+    return (res == 0) ? 0 : BLE_ATT_ERR_INSUFFICIENT_RES;
   }
+  
   return 0;
 }
 
